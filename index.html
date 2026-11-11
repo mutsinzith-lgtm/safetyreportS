@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafetyReport | Voluntary Aviation Safety Reporting</title>
+<style>
+:root{--ink:#17323b;--muted:#667a80;--teal:#087f78;--teal2:#066b65;--line:#dce6e5;--bg:#f4f7f6;--soft:#edf6f4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Arial,Helvetica,sans-serif}
+header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100% - 1080px)/2))}
+.brand{display:flex;gap:11px;align-items:center;font-weight:800;font-size:18px}.mark{width:34px;height:34px;border-radius:10px;background:var(--teal);color:white;display:grid;place-items:center}.tag{font-size:12px;color:var(--muted)}
+main{max-width:1080px;margin:auto;padding:55px 22px 40px}.hero{max-width:660px;margin-bottom:32px}.eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:800;color:var(--teal)}h1{font-size:clamp(42px,7vw,66px);line-height:1.02;letter-spacing:-2.8px;margin:15px 0}h1 span{font-family:Georgia,serif;font-weight:400;color:var(--teal);font-style:italic}.hero p{max-width:590px;color:var(--muted);font-size:16px;line-height:1.7}.notice{display:inline-block;background:var(--soft);padding:9px 13px;border-radius:6px;color:#315b57;font-size:12px;margin-top:7px}
+.card{max-width:820px;background:white;border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 12px 34px #183b3510}.card-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}h2{font-size:26px;letter-spacing:-.7px;margin:6px 0 0}.required{font-size:12px;color:var(--muted)}.privacy{background:var(--soft);border-left:3px solid var(--teal);padding:14px 16px;color:#45615e;font-size:13px;line-height:1.6;margin:20px 0 24px}.privacy strong{color:var(--ink)}
+form{display:grid;gap:19px}.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}label{display:grid;gap:7px;font-size:13px;font-weight:700}label b{color:#b65342}.optional{font-weight:400;color:var(--muted)}
+input:not([type=checkbox]),select,textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:14px Arial;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px #087f7818}textarea{resize:vertical;line-height:1.55}
+.anon{display:flex;justify-content:space-between;align-items:center;gap:15px;border:1px solid var(--line);border-radius:9px;padding:14px;background:#fbfdfc}.anon span{display:grid;gap:3px}.anon small{font-weight:400;color:var(--muted)}input[type=checkbox]{accent-color:var(--teal);width:17px;height:17px;flex:none}.consent{display:flex;align-items:start;gap:9px;font-weight:400;color:var(--muted);line-height:1.5}.consent input{margin-top:2px;flex:none}
+button{border:0;border-radius:8px;background:var(--teal);color:white;padding:14px 18px;font-weight:700;font-size:14px;cursor:pointer}button:hover{background:var(--teal2)}button:disabled{opacity:.6;cursor:wait}.secondary{background:#eaf1f0;color:var(--ink)}.actions{display:flex;gap:10px;flex-wrap:wrap}.foot{font-size:11px;color:#77888b;line-height:1.6;margin:18px 0 0}.error{display:none;color:#a52c22;background:#fff1ef;border:1px solid #f1c8c3;padding:11px;border-radius:7px;font-size:13px}
+#result{display:none;text-align:center;padding:28px 8px}#result .check{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:var(--soft);color:var(--teal);font-size:26px}#reference{display:inline-block;background:var(--soft);border:1px dashed var(--teal);padding:12px 18px;border-radius:8px;font-weight:800;letter-spacing:1px;margin:14px}
+footer{max-width:1080px;margin:auto;padding:0 22px 35px;color:#829094;font-size:10px;letter-spacing:1.2px}.trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+@media(max-width:650px){header{padding:0 17px}.tag{display:none}main{padding:38px 15px}.card{padding:21px 16px}.row{grid-template-columns:1fr}.card-head{align-items:start;gap:10px}h1{letter-spacing:-1.8px}}
+</style></head>
+<body>
+<header><div class="brand"><div class="mark">S</div>SafetyReport</div><div class="tag">AVIATION VOLUNTARY REPORTING</div></header>
+<main><section class="hero"><div class="eyebrow">AVIATION SAFETY · VOLUNTARY REPORTING</div><h1>Speak up for<br><span>safer skies.</span></h1><p>Share a hazard, safety concern, unsafe condition or lesson learned. Your report can help identify risks and prevent future occurrences.</p><div class="notice">Voluntary reporting · Anonymous option available</div></section>
+<section class="card">
+<div id="formPanel"><div class="card-head"><div><div class="eyebrow">VOLUNTARY REPORT</div><h2>Tell us what happened</h2></div><div class="required">* Required</div></div>
+<div class="privacy"><strong>Your choice matters.</strong> You may submit anonymously or provide contact details for confidential follow-up. Avoid including unnecessary personal or sensitive information.</div>
+<form id="reportForm">
+<label class="anon"><span><strong>Submit anonymously</strong><small>Your name and contact details will not be requested.</small></span><input id="anonymous" type="checkbox" checked></label>
+<div class="row" id="identity" hidden><label>Your name <span class="optional">(optional)</span><input id="name" maxlength="150" autocomplete="name" placeholder="Your name"></label><label>Email address <span class="optional">(optional)</span><input id="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com"></label></div>
+<div class="row"><label>Report category <b>*</b><select id="category" required><option value="">Select a category</option><option>Hazard / unsafe condition</option><option>Safety concern</option><option>Incident / occurrence</option><option>Ground operations</option><option>Air navigation services</option><option>Aircraft operation</option><option>Airport operations</option><option>Other</option></select></label><label>Date of event <span class="optional">(optional)</span><input id="date" type="date"></label></div>
+<label>Location / operational area <b>*</b><input id="location" maxlength="180" required placeholder="e.g. airport, apron, runway, airspace or operational area"></label>
+<label>What happened or what is the safety concern? <b>*</b><textarea id="description" minlength="20" maxlength="8000" rows="6" required placeholder="Describe what you observed, the circumstances and any potential safety consequences."></textarea></label>
+<label>Immediate action taken <span class="optional">(optional)</span><textarea id="action" maxlength="3000" rows="3" placeholder="Describe any immediate action taken to reduce the risk."></textarea></label>
+<label class="consent"><input id="confirm" type="checkbox" required><span>I confirm that this report is submitted in good faith and that the information is accurate to the best of my knowledge.</span></label>
+<div class="trap" aria-hidden="true"><label>Leave this field empty<input id="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="error" id="error" role="alert"></div><div class="actions"><button id="submit" type="submit">Submit voluntary report →</button><button type="reset" class="secondary">Clear form</button></div>
+</form>
+<p class="foot">Reports are sent to the designated safety reporting mailbox. Do not use this portal for emergencies or immediate operational notifications; follow applicable mandatory and emergency reporting channels.</p></div>
+<div id="result"><div class="check">✓</div><div class="eyebrow">REPORT SUBMITTED</div><h2>Thank you for speaking up.</h2><p>Your report has been emailed to the safety reporting mailbox.</p><div id="reference"></div><p class="foot">Keep this reference for your records. Do not include confidential information in follow-up emails unless using an approved secure channel.</p><button type="button" onclick="location.reload()">Submit another report</button></div>
+</section></main><footer>SAFETYREPORT · AVIATION SAFETY LEARNING AND PREVENTION</footer>
+<script>
+const anonymous = document.getElementById('anonymous');
+const identity = document.getElementById('identity');
+anonymous.addEventListener('change', () => { identity.hidden = anonymous.checked; });
+document.getElementById('reportForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const errorBox = document.getElementById('error');
+  const button = document.getElementById('submit');
+  errorBox.style.display = 'none';
+  if (document.getElementById('website').value) return;
+  const payload = {
+    category: document.getElementById('category').value,
+    event_date: document.getElementById('date').value || null,
+    location: document.getElementById('location').value.trim(),
+    description: document.getElementById('description').value.trim(),
+    immediate_action: document.getElementById('action').value.trim() || null,
+    anonymous: anonymous.checked,
+    reporter_name: anonymous.checked ? null : document.getElementById('name').value.trim() || null,
+    reporter_email: anonymous.checked ? null : document.getElementById('email').value.trim() || null,
+    website: document.getElementById('website').value
+  };
+  button.disabled = true; button.textContent = 'Sending report securely...';
+  try {
+    const response = await fetch('/api/report', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'The report could not be sent. Please try again.');
+    document.getElementById('formPanel').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('reference').textContent = data.reference;
+  } catch (err) {
+    errorBox.textContent = err.message || 'A network error occurred. Please try again.';
+    errorBox.style.display = 'block';
+    button.disabled = false; button.textContent = 'Submit voluntary report →';
+  }
+});
+</script></body></html>
